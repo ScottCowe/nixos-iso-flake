@@ -14,10 +14,24 @@
           {
             nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-            networking.wireless.enable = false;
-            networking.networkmanager.enable = true;
+            networking = {
+            #   useDHCP = false;
+            #   interfaces = {
+            #     enp5s0.ipv4.addresses = [{
+            #       address = "192.168.100";
+            #       prefixLength = 24;
+            #     }];
+            #     enp4s0.ipv4.addresses = [{
+            #       address = "192.168.101";
+            #       prefixLength = 24;
+            #     }];
+            #   };
+              firewall.allowedTCPPorts = [ 22 ];
+            };
 
             nixpkgs.hostPlatform = "${system}"; 
+
+            services.openssh.enable = true;
           }
         ];
       };
