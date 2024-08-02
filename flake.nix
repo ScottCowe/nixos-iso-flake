@@ -15,23 +15,27 @@
             nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
             networking = {
-            #   useDHCP = false;
-            #   interfaces = {
-            #     enp5s0.ipv4.addresses = [{
-            #       address = "192.168.100";
-            #       prefixLength = 24;
-            #     }];
-            #     enp4s0.ipv4.addresses = [{
-            #       address = "192.168.101";
-            #       prefixLength = 24;
-            #     }];
-            #   };
+              useDHCP = false;
+              interfaces = {
+                enp5s0.ipv4.addresses = [{
+                  address = "192.168.1.100";
+                  prefixLength = 24;
+                }];
+                enp4s0.ipv4.addresses = [{
+                  address = "192.168.1.101";
+                  prefixLength = 24;
+                }];
+              };
               firewall.allowedTCPPorts = [ 22 ];
             };
 
             nixpkgs.hostPlatform = "${system}"; 
 
             services.openssh.enable = true;
+
+            users.users.nixos.openssh.authorizedKeys.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJeTUFLvpH1bM7oAKCZK+JTVAYVmEIhZwkgmrgRPHy1 installer_iso_laptop"
+            ];
           }
         ];
       };
